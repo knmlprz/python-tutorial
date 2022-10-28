@@ -1,0 +1,67 @@
+\documentclass{article}
+
+% Page margins
+\usepackage{geometry}
+\newgeometry{inner=2.54cm, outer=2.54cm, top=2.54cm,bottom=2.54cm, bindingoffset=0cm}
+
+% Language support (date, contents, etc.)
+\usepackage[polish]{babel}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+
+% For images (\includegraphics)
+\usepackage{graphicx}
+
+% Lorem ipsum text
+\usepackage{blindtext}
+
+\newcommand{\pageLine}{\rule{\linewidth}{0.4mm}}
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		\linespread{1} 
+		
+		%%% University
+		% \includegraphics[width=7cm]{path/to/prz/logo.png} \par\vspace{1cm}
+		{\scshape\LARGE Politechnika Rzeszowska \par 
+			im. Ignacego Łukasiewicza \par}
+		\vspace{0.2cm}
+		
+		%%% Faculty
+		{\scshape\Large Wydział Matematyki I Fizyki Stosowanej \par}
+		
+		\vspace{1cm}
+		\pageLine
+		\vspace{0.5cm}
+		
+		%%% Title 
+		{\huge\bfseries Kurs języka Python - Laboratorium \par}
+		
+		\vspace{0.5cm}
+		\pageLine
+		\vspace{2cm}
+		
+		%%% Author & Group
+		{\bfseries\itshape\Large Imię Nazwisko} \par
+		\vspace{0.1cm}
+		{grupa | rok studiów | numer albumu}
+		\vfill
+		
+		%%% Location
+		{\large Rzeszów \par}
+		
+		%%% Date
+		{\large \today \par}
+		
+	\end{titlepage}
+	\newpage
+	
+	%%% YOUR TEXT GOES HERE %%%
+	
+	% Demo document, delete this line 
+	\Blinddocument
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+\end{document}
