@@ -14,9 +14,9 @@ SPR_DIRS = (
     RESOURCES_DIR.joinpath("sprawozdanie-3"),
 )
 
-with open(
-    RESOURCES_DIR.joinpath("tex-templates/header.tex"), mode="r", encoding="UTF-8"
-) as header_file:
+with open(RESOURCES_DIR.joinpath("tex-templates/header.tex"),
+          mode="r",
+          encoding="UTF-8") as header_file:
     header = header_file.read()
 
 footer = r"\end{document}"
@@ -65,14 +65,14 @@ def generate_report(output_directory, filename, content):
     os.unlink(filepath + ".log")
     if not retcode == 0:
         os.unlink(filepath + ".pdf")
-        raise Exception(
-            "Error {} executing command: {}".format(retcode, " ".join(command))
-        )
+        raise Exception("Error {} executing command: {}".format(
+            retcode, " ".join(command)))
 
 
 captions = [f"Image {i + 1}" for i, _ in enumerate(os.listdir(SPR_DIRS[2]))]
 
-content = create_tex_code(
-    directory=SPR_DIRS[2], captions=captions, latex_head=header, latex_tail=footer
-)
+content = create_tex_code(directory=SPR_DIRS[2],
+                          captions=captions,
+                          latex_head=header,
+                          latex_tail=footer)
 generate_report(output_directory=OUTPUT_DIR, filename="cover", content=content)
