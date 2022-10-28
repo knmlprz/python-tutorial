@@ -2,7 +2,8 @@ import os
 import subprocess
 from pathlib import Path
 
-PROJECT_DIR = Path(r"C:\Users\vital\OneDrive\python\PRZ\knml-python-tutorial-private\2-tex-report-generator")
+PROJECT_DIR = Path(
+    r"C:\Users\vital\OneDrive\python\PRZ\knml-python-tutorial-private\2-tex-report-generator")
 OUTPUT_DIR = PROJECT_DIR.joinpath("results")
 
 RESOURCES_DIR = PROJECT_DIR.joinpath("resources")
@@ -43,7 +44,8 @@ def generate_report(output_directory, filename, content):
     with open(tex_file_path, 'w', encoding="UTF-8") as f:
         f.write(content)
 
-    command = ['pdflatex', '-interaction', 'nonstopmode', '-output-directory', output_directory, tex_file_path]
+    command = ['pdflatex', '-interaction', 'nonstopmode',
+               '-output-directory', output_directory, tex_file_path]
     proc = subprocess.Popen(command)
     proc.communicate()
 
@@ -51,7 +53,8 @@ def generate_report(output_directory, filename, content):
     os.unlink(filepath + ".log")
     if not retcode == 0:
         os.unlink(filepath + ".pdf")
-        raise Exception('Error {} executing command: {}'.format(retcode, ' '.join(command)))
+        raise Exception('Error {} executing command: {}'.format(
+            retcode, ' '.join(command)))
 
 
 captions = [
