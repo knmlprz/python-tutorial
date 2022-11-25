@@ -1,4 +1,4 @@
-    import random
+import random
 
 import pygame
 from pygame.locals import (
@@ -86,7 +86,8 @@ class SnakeBodySection(pygame.sprite.Sprite):
 
     def __init__(self, *groups: pygame.sprite.AbstractGroup):
         super().__init__(*groups)
-        self.surface = pygame.Surface(size=(SEGMENT_SIZE, SEGMENT_SIZE), flags=pygame.SRCALPHA)
+        self.surface = pygame.Surface(
+            size=(SEGMENT_SIZE, SEGMENT_SIZE), flags=pygame.SRCALPHA)
         self.is_tail = True
 
 
@@ -94,15 +95,19 @@ class SnakeHead(SnakeBodySection):
 
     def __init__(self, *groups: pygame.sprite.AbstractGroup):
         super().__init__(*groups)
-        self.direction = self.previous_direction = self.next_direction = DIRECTIONS[random.randint(0, 3)]
+        self.direction = self.previous_direction = self.next_direction = DIRECTIONS[random.randint(
+            0, 3)]
         self.surface.blit(img_head, (0, 0))
-        self.surface = pygame.transform.rotate(self.surface, Movements().turn("up", self.direction))
+        self.surface = pygame.transform.rotate(
+            self.surface, Movements().turn("up", self.direction))
         width_positions = SCREEN_WIDTH // SEGMENT_SIZE
         height_positions = SCREEN_HEIGHT // SEGMENT_SIZE
         self.rect = self.surface.get_rect()
         self.rect.move_ip(
-            random.randint(width_positions // 4, width_positions - width_positions // 4) * SEGMENT_SIZE,
-            random.randint(height_positions // 4, height_positions - height_positions // 4) * SEGMENT_SIZE
+            random.randint(width_positions // 4, width_positions -
+                           width_positions // 4) * SEGMENT_SIZE,
+            random.randint(height_positions // 4, height_positions -
+                           height_positions // 4) * SEGMENT_SIZE
         )
 
     def update_direction(self, pressed_keys):
@@ -131,8 +136,10 @@ class SnakeTail(SnakeBodySection):
         self.previous_segment.is_tail = False
         self.direction = self.previous_direction = self.previous_segment.direction
         self.surface.blit(img_tail, (0, 0))
-        self.surface = pygame.transform.rotate(self.surface, Movements().turn("up", self.direction))
-        self.rect = self.previous_segment.rect.move(Movements().opposite_to(self.direction))
+        self.surface = pygame.transform.rotate(
+            self.surface, Movements().turn("up", self.direction))
+        self.rect = self.previous_segment.rect.move(
+            Movements().opposite_to(self.direction))
 
     def update(self, *args, **kwargs):
         self.previous_direction = self.direction
@@ -146,22 +153,26 @@ class SnakeTail(SnakeBodySection):
         else:
             degrees = Movements().turn(self.direction, self.previous_segment.direction)
             self.surface.blit(Movements().turn_skins.get(degrees), (0, 0))
-            self.surface = pygame.transform.rotate(self.surface, Movements().turn("up", self.direction))
+            self.surface = pygame.transform.rotate(
+                self.surface, Movements().turn("up", self.direction))
 
 
 class Food(pygame.sprite.Sprite):
     def __init__(self, snake: pygame.sprite.AbstractGroup, *groups: pygame.sprite.AbstractGroup):
         super().__init__(*groups)
         self.snake = snake
-        self.surface = pygame.Surface(size=(SEGMENT_SIZE, SEGMENT_SIZE), flags=pygame.SRCALPHA)
+        self.surface = pygame.Surface(
+            size=(SEGMENT_SIZE, SEGMENT_SIZE), flags=pygame.SRCALPHA)
         self.surface.blit(img_apple, (0, 0))
         self.update()
 
     def update(self, *args, **kwargs):
         while True:
             self.rect = self.surface.get_rect(
-                left=random.randint(0, SCREEN_WIDTH // SEGMENT_SIZE - 1) * SEGMENT_SIZE,
-                top=random.randint(0, SCREEN_HEIGHT // SEGMENT_SIZE - 1) * SEGMENT_SIZE
+                left=random.randint(0, SCREEN_WIDTH //
+                                    SEGMENT_SIZE - 1) * SEGMENT_SIZE,
+                top=random.randint(0, SCREEN_HEIGHT //
+                                   SEGMENT_SIZE - 1) * SEGMENT_SIZE
             )
             if not pygame.sprite.spritecollideany(self, self.snake):
                 break
@@ -171,11 +182,13 @@ class ScoreCounter(pygame.sprite.Sprite):
     def __init__(self, *groups: pygame.sprite.AbstractGroup):
         super().__init__(*groups)
         self.score_counter = INITIAL_SNAKE_LENGTH
-        self.surface = font.render(str(self.score_counter), False, (255, 255, 255))
+        self.surface = font.render(
+            str(self.score_counter), False, (255, 255, 255))
         self.rect = self.surface.get_rect(right=SCREEN_WIDTH)
 
     def update(self, *args, **kwargs):
-        self.surface = font.render(str(self.score_counter), False, (255, 255, 255))
+        self.surface = font.render(
+            str(self.score_counter), False, (255, 255, 255))
         self.rect = self.surface.get_rect(right=SCREEN_WIDTH)
 
 
@@ -186,7 +199,8 @@ food_group = pygame.sprite.Group()
 
 new_snake_segment = head = SnakeHead(snake_body, all_sprites)
 for i in range(INITIAL_SNAKE_LENGTH - 1):
-    new_snake_segment = SnakeTail(new_snake_segment, snake_tail, snake_body, all_sprites)
+    new_snake_segment = SnakeTail(
+        new_snake_segment, snake_tail, snake_body, all_sprites)
 food = Food(snake_body, food_group, all_sprites)
 score = ScoreCounter(all_sprites)
 
@@ -208,7 +222,8 @@ while game_is_running:
         head.update()
 
         if pygame.sprite.spritecollideany(head, food_group):
-            new_snake_segment = SnakeTail(new_snake_segment, snake_tail, snake_body, all_sprites)
+            new_snake_segment = SnakeTail(
+                new_snake_segment, snake_tail, snake_body, all_sprites)
             score.score_counter += 1
             score.update()
             food.update()
