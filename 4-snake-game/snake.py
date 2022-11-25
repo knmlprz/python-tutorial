@@ -1,7 +1,12 @@
 import random
 
 import pygame
-from pygame.locals import K_DOWN, K_ESCAPE, K_LEFT, K_RIGHT, K_UP, KEYDOWN
+from pygame.locals import K_DOWN
+from pygame.locals import K_ESCAPE
+from pygame.locals import K_LEFT
+from pygame.locals import K_RIGHT
+from pygame.locals import K_UP
+from pygame.locals import KEYDOWN
 
 # Game settings
 SCREEN_WIDTH = 800
